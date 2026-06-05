@@ -2,6 +2,7 @@ package com.miguelmuniz.api.entites;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.miguelmuniz.api.entites.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.time.Instant;
@@ -18,6 +19,7 @@ public class Order {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
 
+    private Integer orderStatus;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -26,11 +28,12 @@ public class Order {
     public Order() {
     }
 
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment,OrderStatus orderStatus, User client) {
         this.id = id;
         this.client = client;
+        setOrderStatus(orderStatus);
         this.moment = moment;
-    }
+    } 
 
     public long getId() {
         return id;
@@ -48,12 +51,23 @@ public class Order {
         this.client = client;
     }
 
+
     public Instant getMoment() {
         return moment;
     }
 
     public void setMoment(Instant moment) {
         this.moment = moment;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus);
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if (orderStatus != null){
+        this.orderStatus = orderStatus.getCode();
+        }
     }
 
     @Override

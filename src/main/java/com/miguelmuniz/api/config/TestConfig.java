@@ -1,6 +1,7 @@
 package com.miguelmuniz.api.config;
 
 import com.miguelmuniz.api.entites.Order;
+import com.miguelmuniz.api.entites.enums.OrderStatus;
 import com.miguelmuniz.api.repositories.OrderRepository;
 import com.miguelmuniz.api.repositories.UserRepository;
 import com.miguelmuniz.api.entites.User;
@@ -28,9 +29,9 @@ public class TestConfig implements CommandLineRunner {
         User u1 = new User(null,"Maria","Maria@gmail.com","1199200002","122244423");
         User u2 = new User(null,"Bob","Bob@gmail.com","119924442","1222433223");
 
-        Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), u1);
-        Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), u2);
-        Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), u1);
+        Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.PAID, u1);
+        Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"),OrderStatus.SHIPPED, u2);
+        Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"),OrderStatus.DELIVERED, u1);
 
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1,o2,o3));
