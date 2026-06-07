@@ -33,7 +33,7 @@ public class Order {
         this.client = client;
         setOrderStatus(orderStatus);
         this.moment = moment;
-    } 
+    }
 
     public long getId() {
         return id;
