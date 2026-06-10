@@ -90,6 +90,12 @@ public class Order {
         this.payment = payment;
     }
 
+    public Double getTotal(){
+        double sum = items.stream().mapToDouble(OrderItem::getSubTotal).sum();
+
+        return sum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
