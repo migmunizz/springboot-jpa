@@ -1,5 +1,6 @@
 package com.miguelmuniz.api.resource.exceptions;
 
+import com.miguelmuniz.api.services.exceptions.DataBaseException;
 import com.miguelmuniz.api.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -18,4 +19,12 @@ public class ResourceExceptionHandler {
         StandardError error1 = new StandardError(Instant.now(),status.value(),error,e.getMessage(),request.getRequestURI());
         return ResponseEntity.status(status).body(error1);
         }
+    @ExceptionHandler(DataBaseException.class)
+    public ResponseEntity<StandardError> database(DataBaseException e, HttpServletRequest request){
+        String error = "database error";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError error1 = new StandardError(Instant.now(),status.value(),error,e.getMessage(),request.getRequestURI());
+        return ResponseEntity.status(status).body(error1);
+    }
 }
+
